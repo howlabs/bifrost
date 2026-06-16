@@ -7,13 +7,13 @@ import path from "node:path";
 import os from "node:os";
 
 const PLANS_DIR = path.join(os.homedir(), ".chatgpt_plans");
-const server = new Server({ name: "planner", version: "1.0" }, { capabilities: { tools: {} } });
+const server = new Server({ name: "bifrost", version: "1.0" }, { capabilities: { tools: {} } });
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
     {
       name: "save_plan",
-      description: "Lưu bản kế hoạch dự án. BẮT BUỘC có 4 phần: Overview, Tech Stack, Folder Structure, Steps.",
+      description: "Save a project plan. MUST include 4 sections: Overview, Tech Stack, Folder Structure, Steps.",
       inputSchema: {
         type: "object",
         properties: { name: { type: "string" }, content: { type: "string" } },
@@ -22,7 +22,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     },
     {
       name: "get_plan",
-      description: "Lấy kế hoạch để code.",
+      description: "Get the project plan to write code.",
       inputSchema: {
         type: "object",
         properties: { name: { type: "string" } },
@@ -39,9 +39,9 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
 
   try {
     if (name === "save_plan") {
-      await fs.mkdir(PLANS_DIR, { recursive: true }); // ponytail: defer mkdir to first write
+      await fs.mkdir(PLANS_DIR, { recursive: true });
       await fs.writeFile(p, args?.content as string);
-      return { content: [{ type: "text", text: `Đã lưu: ${p}` }] };
+      return { content: [{ type: "text", text: `Saved: ${p}` }] };
     }
     if (name === "get_plan") {
       return { content: [{ type: "text", text: await fs.readFile(p, "utf-8") }] };
