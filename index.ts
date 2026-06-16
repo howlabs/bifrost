@@ -23,21 +23,35 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: "get_plan",
       description: "Get the project plan to write code.",
-      inputSchema: {
-        type: "object",
-        properties: { name: { type: "string" } },
-        required: ["name"],
-      },
+      inputSchema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] },
+    },
+    {
+      name: "read_file",
+      description: "Read ANY local file content (e.g., to audit code).",
+      inputSchema: { type: "object", properties: { path: { type: "string", description: "Absolute path to the file" } }, required: ["path"] },
+    },
+    {
+      name: "list_dir",
+      description: "List files in a directory to explore the workspace.",
+      inputSchema: { type: "object", properties: { path: { type: "string", description: "Absolute path to the directory" } }, required: ["path"] },
     },
   ],
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   const { name, arguments: args } = req.params;
-  const safeName = String(args?.name).replace(/[^a-zA-Z0-9_-]/g, "");
-  const p = path.join(PLANS_DIR, `${safeName}.md`);
 
   try {
+    if (name === "list_dir") {
+      return { content: [{ type: "text", text: (await fs.readdir(args?.path as string)).join("\n") }] };
+    }
+    if (name === "read_file") {
+      return { content: [{ type: "text", text: await fs.readFile(args?.path as string, "utf-8") }] };
+    }
+    
+    const safeName = String(args?.name).replace(/[^a-zA-Z0-9_-]/g, "");
+    const p = path.join(PLANS_DIR, `${safeName}.md`);
+
     if (name === "save_plan") {
       await fs.mkdir(PLANS_DIR, { recursive: true });
       await fs.writeFile(p, args?.content as string);
