@@ -2,14 +2,14 @@
   "name": "bifrost",
   "version": "1.0.0",
   "description": "MCP server to use ChatGPT for planning documents",
-  "main": "build/index.js",
+  "main": "index.ts",
   "type": "module",
   "bin": {
     "bifrost": "./build/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node build/index.js"
+    "build": "echo \"No build needed\"",
+    "start": "npx tsx index.ts"
   },
   "keywords": [],
   "author": "",

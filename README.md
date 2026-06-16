@@ -17,7 +17,7 @@ npm run build
 Requires OpenAI `tunnel-client` and an API key:
 ```bash
 export OPENAI_API_KEY="sk-proj-..."
-tunnel-client run --control-plane.tunnel-id <YOUR_TUNNEL_ID> --mcp.command "command=node,args=build/index.js"
+tunnel-client run --control-plane.tunnel-id <YOUR_TUNNEL_ID> --mcp.command "command=npx,args=tsx,args=index.ts"
 ```
 
 ## Connect Claude (Local)
@@ -26,8 +26,8 @@ Add to `claude_desktop_config.json`:
 {
   "mcpServers": {
     "bifrost": {
-      "command": "node",
-      "args": ["/absolute/path/to/bifrost/build/index.js"]
+      "command": "npx",
+      "args": ["tsx", "/absolute/path/to/bifrost/index.ts"]
     }
   }
 }

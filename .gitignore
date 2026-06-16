@@ -2,3 +2,4 @@ node_modules
 build
 .chatgpt_plans
 .env
+package-lock.json
