@@ -6,6 +6,8 @@ ChatGPT writes the plan to `~/.chatgpt_plans`. Claude reads it and codes.
 ## Tools
 - `save_plan(name, content)`: Writes `.md` plan. Enforces Overview, Stack, Structure, Steps.
 - `get_plan(name)`: Reads `.md` plan.
+- `list_dir(path)`: Lists files in a local directory (useful for ChatGPT to explore codebase).
+- `read_file(path)`: Reads local file contents (useful for ChatGPT to audit code).
 
 ## Setup
 ```bash
