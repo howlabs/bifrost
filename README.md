@@ -3,6 +3,8 @@
 Local bridge connecting ChatGPT Web to local Claude/Codex CLIs.
 ChatGPT writes the plan to `~/.chatgpt_plans`. Claude reads it and codes.
 
+<img width="1376" height="768" alt="bifrost" src="https://github.com/user-attachments/assets/1756bd02-feb6-4769-97cf-d4d5095271eb" />
+
 ## Tools
 - `save_plan(name, content)`: Writes `.md` plan. Enforces Overview, Stack, Structure, Steps.
 - `get_plan(name)`: Reads `.md` plan.
