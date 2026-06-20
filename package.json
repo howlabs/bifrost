@@ -9,7 +9,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "npx tsx index.ts",
+    "start": "npx tsx src/index.ts",
+    "test": "npx tsx --test tests/**/*.test.ts",
+    "test:coverage": "npx tsx --test --experimental-test-coverage tests/**/*.test.ts",
     "prepare": "npm run build"
   },
   "keywords": [],
